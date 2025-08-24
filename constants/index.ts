@@ -1,11 +1,12 @@
 export const LORDICON_LIBRARY = {
   home: "https://cdn.lordicon.com/cnpvyndp.json",
   user: "/icons/user.json",
-  settings: "https://cdn.lordicon.com/wxnxiano.json",
-  menu: "https://cdn.lordicon.com/kkiecexg.json",
-  search: "https://cdn.lordicon.com/xfftupfv.json",
+  settings: "/icons/settings.json",
+  menu: "/icons/menu.json",
+  search: "/icons/search.json",
   close: "https://cdn.lordicon.com/zxvuvcnc.json",
   arrow: "/icons/arrow.json",
+  folder: "/icons/folder.json",
 
   download: "https://cdn.lordicon.com/nxaaasqd.json",
   upload: "https://cdn.lordicon.com/fpmskzsv.json",
@@ -13,8 +14,8 @@ export const LORDICON_LIBRARY = {
   pause: "https://cdn.lordicon.com/akqsdstj.json",
   refresh: "https://cdn.lordicon.com/wzwygmng.json",
   save: "https://cdn.lordicon.com/jgnvfzqg.json",
-  delete: "https://cdn.lordicon.com/wpyrrmcq.json",
-  edit: "https://cdn.lordicon.com/gwlusjdu.json",
+  delete: "/icons/delete.json",
+  edit: "/icons/edit.json",
 
   mail: "https://cdn.lordicon.com/tkgyrmwc.json",
   phone: "https://cdn.lordicon.com/srsgifqc.json",
@@ -37,16 +38,12 @@ export const LORDICON_LIBRARY = {
   image: "https://cdn.lordicon.com/tdtlrbly.json",
   video: "https://cdn.lordicon.com/fgkmkuox.json",
   music: "https://cdn.lordicon.com/wxnxiano.json",
-  document: "https://cdn.lordicon.com/nocovwne.json",
-  folder: "https://cdn.lordicon.com/wyqtxzeh.json",
 
   cart: "/icons/cart.json",
   bag: "https://cdn.lordicon.com/slkvcfos.json",
   money: "https://cdn.lordicon.com/qhgmphtg.json",
   card: "https://cdn.lordicon.com/qhgmphtg.json",
 
-  sun: "https://cdn.lordicon.com/fkdzyfle.json",
-  moon: "https://cdn.lordicon.com/dqxvvqzi.json",
   cloud: "https://cdn.lordicon.com/eszyyflr.json",
   rain: "https://cdn.lordicon.com/kddagzqs.json",
   clock: "/icons/clock.json",
@@ -57,6 +54,15 @@ export const LORDICON_LIBRARY = {
   computer: "https://cdn.lordicon.com/cnpvyndp.json",
   mobile: "https://cdn.lordicon.com/tkgyrmwc.json",
 
+  assignment: "/icons/assignment.json",
+
+  globe: "/icons/globe.json",
+  metrics: "/icons/metrics.json",
+  folderPlus: "/icons/folder-plus.json",
+  inbox: "/icons/inbox.json",
+  lockClosed: "/icons/lock-closed.json",
+  swap: "/icons/swap.json",
+  link: "/icons/link.json",
   error55: "/icons/55-error.json",
   arrowRocket: "/icons/arrow-rocket.json",
   arrowDown: "/icons/arrow-down.json",
@@ -64,6 +70,8 @@ export const LORDICON_LIBRARY = {
   code: "/icons/code.json",
   increase: "/icons/increase.json",
   thunderbolt: "/icons/thunderbolt.json",
+  list: "/icons/check-list.json",
+  document: "/icons/document.json",
 } as const;
 
 export type LordIconName = keyof typeof LORDICON_LIBRARY;
@@ -96,3 +104,11 @@ export const LORDICON_THEMES = {
 } as const;
 
 export type LordIconTheme = keyof typeof LORDICON_THEMES;
+
+export const MODAL_NAMES = {
+  CREATE_PROJECT: "create-project",
+  UPDATE_PROJECT: "update-project",
+  DISABLE_PROJECT: "disable-project",
+} as const;
+
+export type ModalNames = (typeof MODAL_NAMES)[keyof typeof MODAL_NAMES];

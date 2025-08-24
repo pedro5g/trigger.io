@@ -53,6 +53,7 @@ export const LordIcon = ({
 
     const handleReady = () => {
       setIsReady(true);
+
       if (onReady) {
         onReady();
       }
@@ -108,6 +109,9 @@ export const LordIcon = ({
     return colorEntries.length > 0 ? colorEntries.join(",") : undefined;
   };
 
+  const actualTrigger =
+    trigger === "mount" || trigger === "mount-loop" ? "hover" : trigger;
+
   const IconElement = () =>
     React.createElement("lord-icon", {
       ref: iconRef,
@@ -131,12 +135,12 @@ export const LordIcon = ({
       ...props,
     });
 
-  const actualTrigger =
-    trigger === "mount" || trigger === "mount-loop" ? "hover" : trigger;
-
   return (
     <>
-      <Script src="/scripts/lordicon.js" strategy="afterInteractive" />
+      <Script
+        src="https://cdn.lordicon.com/lordicon.js"
+        strategy="afterInteractive"
+      />
       <IconElement />
     </>
   );

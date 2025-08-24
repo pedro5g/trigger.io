@@ -18,7 +18,7 @@ export const signInAction = createServerAction()
     await setSessionCookie({
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
-      expiresAt: data.expiresIn,
+      expiresAt: Date.now() + data.expiresIn * 1000,
     });
 
     return {

@@ -1,14 +1,20 @@
 "use client";
 
+import type { User } from "@/lib/api/endpoints/endpoints.types";
 import { useUser } from "@/lib/auth/provider";
 import { use } from "react";
 
-export function useCurrentUser() {
+type UserCurrentUserReturn = { isAuthenticated: boolean } & (
+  | { isAuthenticated: true; user: User }
+  | { isAuthenticated: false; user: null }
+);
+
+export function useCurrentUser(): UserCurrentUserReturn {
   const { userPromise } = useUser();
   const user = use(userPromise);
 
   return {
-    user,
     isAuthenticated: !!user,
-  };
+    user,
+  } as UserCurrentUserReturn;
 }

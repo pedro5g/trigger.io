@@ -41,6 +41,21 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-plop: plop 1s ease-in-out 0.1s infinite;
+  --animate-plop2: plop 1s ease-in-out 0.2s infinite;
+  --animate-plop3: plop 1s ease-in-out 0.4s infinite;
+
+  /* Animations  */
+
+  @keyframes plop {
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    20% {
+      opacity: 1;
+    }
+  }
 }
 
 :root {

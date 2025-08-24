@@ -23,9 +23,10 @@ export const InputField = <T extends FieldValues>({
   label,
   className,
   name,
+  id,
   ...props
 }: InputFieldProps<T>) => {
-  const id = useId();
+  const internalId = id ? id : useId();
   const { control } = useFormContext<T>();
 
   return (
@@ -38,9 +39,9 @@ export const InputField = <T extends FieldValues>({
       }) => {
         return (
           <div className="*:not-first:mt-3">
-            {label && <Label htmlFor={id}>{label}</Label>}
+            {label && <Label htmlFor={internalId}>{label}</Label>}
             <Input
-              id={id}
+              id={internalId}
               name={name}
               onBlur={onBlur}
               onChange={onChange}
@@ -51,7 +52,7 @@ export const InputField = <T extends FieldValues>({
               {...props}
             />
             <div
-              id={id}
+              id={internalId}
               role="alert"
               aria-live="polite"
               aria-atomic="true"

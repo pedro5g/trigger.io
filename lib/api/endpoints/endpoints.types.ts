@@ -67,3 +67,73 @@ export type ApiResetPasswordResponse = ApiBaseResponse;
 export type ApiUserProfileResponse = ApiBaseResponse & {
   user: User;
 };
+
+export type ProjectStatus = "active" | "inactive" | "suspended";
+export type Project = {
+  id: string;
+  project_name: string;
+  description: string | null;
+  domain: string | null;
+  icon: string | null;
+  rate_limit_per_minute: number;
+  rate_limit_per_hour: number;
+  rate_limit_per_day: number;
+  status: "active" | "inactive" | "suspended";
+  webhook_secret: string;
+  created_at: Date;
+  updated_at: Date | null;
+};
+
+export type ApiCreateProjectBody = {
+  projectName: string;
+  description?: string;
+  domain?: string;
+  icon?: string;
+};
+
+export type ApiCreateProjectResponse = ApiBaseResponse & {
+  projects: Omit<
+    Project,
+    | "rate_limit_per_minute"
+    | "rate_limit_per_hour"
+    | "rate_limit_per_day"
+    | "updated_at"
+  >;
+};
+
+export type ApiUpdateProjectBody = {
+  projectId: string;
+  projectName: string;
+  description?: string;
+  domain?: string;
+  icon?: string;
+};
+
+export type ApiUpdateProjectResponse = ApiBaseResponse;
+
+export type ApiDisableProjectParams = {
+  projectId: string;
+};
+
+export type ApiDisableProjectResponse = ApiBaseResponse;
+
+export type ApiListProjectsResponse = ApiBaseResponse & {
+  projects: {
+    id: string;
+    project_name: string;
+    description: string | null;
+    domain: string | null;
+    icon: string | null;
+    status: "active" | "inactive" | "suspended";
+    created_at: Date;
+    updated_at: Date | null;
+  }[];
+};
+
+export type ApiGetProjectParams = {
+  projectId: string;
+};
+
+export type ApiGetProjectResponse = ApiBaseResponse & {
+  project: Project;
+};

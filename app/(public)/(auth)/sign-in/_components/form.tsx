@@ -9,7 +9,7 @@ import { signInAction } from "../action";
 import { Loader2 } from "lucide-react";
 import { LordIcon } from "@/app/_components/animate-icons/lord-icon";
 import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm, useFormState } from "react-hook-form";
 import { signInSchema, type SignInSchemaType } from "../schema";
 import { Form } from "@/app/_components/rhf/form";
@@ -24,6 +24,7 @@ interface SignInFormProps {
 }
 
 export const SignInForm = ({ email }: SignInFormProps) => {
+  const route = useRouter();
   const methods = useForm<SignInSchemaType>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -39,7 +40,15 @@ export const SignInForm = ({ email }: SignInFormProps) => {
       methods.reset();
       toast.success("Login successfully");
       await sleep();
-      redirect("/dashboard");
+
+      // [IMPORTANT]: why refresh and non push ?
+      // login is made by server action this no cause full page reload, than getUser not gonna reexecute
+      // but, why don't use revalidateTag('user') within server action ?
+      // that's simple, if i use revalidateTag on server action the session cookie is not yet available the api response is will 401
+      // next cookies uses Set-Cookie headers to save cookies and that only ocorres when response arrive browser,
+      // before this the cookies only exists on current request context -> -> ->
+      //
+      route.refresh();
     },
     onError({ err }) {
       if (err.data === "VERIFICATION_ERROR") {

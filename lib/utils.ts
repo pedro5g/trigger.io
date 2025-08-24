@@ -54,3 +54,15 @@ export const logger = {
 };
 
 export const isClientSide = () => typeof window !== "undefined";
+
+export const getInitials = (fullname: string): string => {
+  return (
+    fullname
+      .trim()
+      .toUpperCase()
+      .split(" ")
+      .map((c) => c[0])
+      .slice(0, 2)
+      .join("") || "NA"
+  );
+};

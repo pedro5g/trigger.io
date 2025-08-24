@@ -8,4 +8,9 @@ export const {
   ApiForgotPassword,
   ApiResetPassword,
   ApiUserProfile,
+  ApiCreateProject,
+  ApiUpdateProject,
+  ApiDisableProject,
+  ApiGetProject,
+  ApiListProjects,
 } = createEndpoints(API);

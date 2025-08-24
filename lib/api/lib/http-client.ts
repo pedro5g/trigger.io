@@ -301,11 +301,11 @@ export class HttpClient {
     const url = this.#buildURL(config.baseURL, config.url, config.params);
     const headers: Record<string, string> = { ...config.headers };
 
-    let body = undefined;
-    if (
-      config.data &&
-      ["POST", "PUT", "PATCH"].includes(config.method || "GET")
-    ) {
+    let body: string | FormData | undefined = undefined;
+    const methodsWithBody = ["POST", "PUT", "PATCH"];
+    const currentMethod = config.method || "GET";
+
+    if (config.data && methodsWithBody.includes(currentMethod)) {
       if (config.transformRequest && config.transformRequest.length > 0) {
         let transformedData = config.data;
         config.transformRequest.forEach((transform) => {
@@ -317,10 +317,20 @@ export class HttpClient {
         config.data !== null &&
         headers["Content-Type"]?.toLowerCase()?.includes("application/json")
       ) {
-        body = JSON.stringify(config.data);
+        body = JSON.stringify(config.data || {});
+      } else {
+        body = config.data;
       }
-    } else {
-      body = config.data;
+    }
+
+    if (!body || !methodsWithBody.includes(currentMethod)) {
+      if (headers["Content-Type"]) {
+        delete headers["Content-Type"];
+      }
+      if (headers["content-type"]) {
+        delete headers["content-type"];
+      }
+      body = undefined;
     }
 
     const controller = new AbortController();
@@ -331,15 +341,18 @@ export class HttpClient {
     }
 
     try {
-      const response = await fetch(url, {
+      const fetchConfig: RequestInit = {
         method: config.method,
         headers,
-        body,
         credentials: config.withCredentials ? "include" : "same-origin",
         signal: controller.signal,
         cache: config.cache,
         next: config.next,
-      });
+      };
+      if (body !== undefined && body !== null && body !== "") {
+        fetchConfig.body = body;
+      }
+      const response = await fetch(url, fetchConfig);
 
       if (timeoutId) {
         clearTimeout(timeoutId);
