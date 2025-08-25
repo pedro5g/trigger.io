@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Webhook, Zap, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { LordIcon } from "../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 const FEATURES = [
   {
@@ -172,8 +172,8 @@ export function FeaturesSection() {
                     <div className="flex items-center gap-4">
                       <button className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 font-medium text-gray-900 transition-colors duration-200 hover:bg-gray-100">
                         Get started
-                        <LordIcon
-                          src={LORDICON_LIBRARY.arrowDown}
+                        <AnimateIcon
+                          src="arrowDown"
                           size={16}
                           colors={LORDICON_THEMES.default}
                           speed={0.5}

@@ -7,8 +7,7 @@ import { unstable_ViewTransition as ViewTransition } from "react";
 import { useServerAction } from "zsa-react";
 import { signInAction } from "../action";
 import { Loader2 } from "lucide-react";
-import { LordIcon } from "@/app/_components/animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import { useRouter } from "next/navigation";
 import { useForm, useFormState } from "react-hook-form";
 import { signInSchema, type SignInSchemaType } from "../schema";
@@ -18,6 +17,7 @@ import { toast } from "@/app/_components/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputPassword } from "@/app/_components/rhf/password";
 import { logger, sleep } from "@/lib/utils";
+import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
 
 interface SignInFormProps {
   email?: string;
@@ -150,8 +150,8 @@ export const SignInForm = ({ email }: SignInFormProps) => {
               ) && (
                 <div className="rounded-md border bg-red-400/20 px-4 py-3 text-red-500 ring-2 ring-red-500">
                   <p className="flex items-center text-sm leading-0">
-                    <LordIcon
-                      src={LORDICON_LIBRARY.warning}
+                    <AnimateIcon
+                      src="warning"
                       size={20}
                       colors={LORDICON_THEMES.error}
                       speed={0.5}
@@ -171,8 +171,8 @@ export const SignInForm = ({ email }: SignInFormProps) => {
                   Login
                   {isPending && <Loader2 className="animate-spin" />}
                   {isSuccess && (
-                    <LordIcon
-                      src={LORDICON_LIBRARY.success}
+                    <AnimateIcon
+                      src="success"
                       size={20}
                       colors={LORDICON_THEMES.success}
                       speed={0.5}

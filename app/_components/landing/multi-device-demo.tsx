@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Monitor, Tablet, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { LordIcon } from "../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 const DESKTOP_NOTIFICATIONS = [
   {
@@ -10,8 +10,8 @@ const DESKTOP_NOTIFICATIONS = [
     title: "New sale made!",
     message: "MacBook Pro M3 - R$ 12,999",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.cart}
+      <AnimateIcon
+        src="cart"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -26,8 +26,8 @@ const DESKTOP_NOTIFICATIONS = [
     title: "Deploy completed",
     message: "Application updated successfully",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.code}
+      <AnimateIcon
+        src="code"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -42,8 +42,8 @@ const DESKTOP_NOTIFICATIONS = [
     title: "Metrics updated",
     message: "CTR increased by 15% this week",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.increase}
+      <AnimateIcon
+        src="increase"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -61,8 +61,8 @@ const TABLET_NOTIFICATIONS = [
     title: "New follower",
     message: "Maria Silva started following you",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.heart}
+      <AnimateIcon
+        src="heart"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -77,8 +77,8 @@ const TABLET_NOTIFICATIONS = [
     title: "Webhook triggered",
     message: "Payment event processed",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.thunderbolt}
+      <AnimateIcon
+        src="thunderbolt"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -93,8 +93,8 @@ const TABLET_NOTIFICATIONS = [
     title: "Users online",
     message: "1.2k active users now",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.user}
+      <AnimateIcon
+        src="user"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -112,8 +112,8 @@ const MOBILE_NOTIFICATIONS = [
     title: "Message received",
     message: "João: When is the new feature coming?",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.message}
+      <AnimateIcon
+        src="message"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -128,8 +128,8 @@ const MOBILE_NOTIFICATIONS = [
     title: "Reminder",
     message: "Meeting in 15 minutes",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.bell}
+      <AnimateIcon
+        src="bell"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}
@@ -144,8 +144,8 @@ const MOBILE_NOTIFICATIONS = [
     title: "System updated",
     message: "Version 2.1.0 is now available",
     icon: () => (
-      <LordIcon
-        src={LORDICON_LIBRARY.code}
+      <AnimateIcon
+        src="code"
         size={16}
         colors={LORDICON_THEMES.dark}
         speed={0.5}

@@ -7,8 +7,8 @@ import {
   toast as sonnerToast,
   type ExternalToast,
 } from "sonner";
-import { LordIcon } from "../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme();
@@ -206,8 +206,8 @@ const toast = {
       description,
       ...overwrite,
       icon: (
-        <LordIcon
-          src={LORDICON_LIBRARY.success}
+        <AnimateIcon
+          src="success"
           size={20}
           colors={LORDICON_THEMES.success}
           speed={0.5}
@@ -226,8 +226,8 @@ const toast = {
       description,
       ...overwrite,
       icon: (
-        <LordIcon
-          src={LORDICON_LIBRARY.close}
+        <AnimateIcon
+          src="close"
           size={20}
           colors={LORDICON_THEMES.error}
           speed={0.5}
@@ -245,8 +245,8 @@ const toast = {
     sonnerToast.warning(title, {
       description,
       icon: (
-        <LordIcon
-          src={LORDICON_LIBRARY.warning}
+        <AnimateIcon
+          src="warning"
           size={20}
           colors={LORDICON_THEMES.warning}
           speed={0.5}
@@ -265,8 +265,8 @@ const toast = {
       description,
       ...overwrite,
       icon: (
-        <LordIcon
-          src={LORDICON_LIBRARY.info}
+        <AnimateIcon
+          src="error"
           size={20}
           colors={LORDICON_THEMES.default}
           speed={0.5}

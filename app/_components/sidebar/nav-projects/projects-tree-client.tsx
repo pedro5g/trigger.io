@@ -9,16 +9,16 @@ import {
   type ItemInstance,
 } from "@headless-tree/core";
 import { AssistiveTreeDescription, useTree } from "@headless-tree/react";
-import { FolderOpenIcon, FolderPlus } from "lucide-react";
+import { FolderOpenIcon } from "lucide-react";
 import { Tree, TreeItem, TreeItemLabel } from "@/app/_components/ui/tree";
-import { LordIcon } from "../../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES, MODAL_NAMES } from "@/constants";
+import { LORDICON_THEMES, MODAL_NAMES } from "@/constants";
 import { Input } from "../../ui/input";
 import { useServerAction } from "zsa-react";
 import { changeProjectNameAction } from "./actions/change-project-name";
 import { buttonVariants } from "../../ui/button";
 import { cn } from "@/lib/utils";
 import { useModalState } from "@/hooks/nuqs/use-modal-state";
+import { AnimateIcon } from "../../animate-icons/aniamtion-icon";
 
 interface ProjectData {
   id: string;
@@ -137,8 +137,8 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
       return item.isExpanded() ? (
         <FolderOpenIcon className="text-muted-foreground pointer-events-none size-4" />
       ) : (
-        <LordIcon
-          src={LORDICON_LIBRARY.folder}
+        <AnimateIcon
+          src="folder"
           colors={LORDICON_THEMES.dark}
           size={16}
           trigger="hover"
@@ -147,8 +147,8 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
       );
     } else if (itemData.type === "details") {
       return (
-        <LordIcon
-          src={LORDICON_LIBRARY.document}
+        <AnimateIcon
+          src="document"
           colors={LORDICON_THEMES.dark}
           size={16}
           trigger="hover"
@@ -157,8 +157,8 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
       );
     } else if (itemData.type === "webhook") {
       return (
-        <LordIcon
-          src={LORDICON_LIBRARY.swap}
+        <AnimateIcon
+          src="swap"
           colors={LORDICON_THEMES.dark}
           size={16}
           trigger="hover"
@@ -167,8 +167,8 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
       );
     } else if (itemData.type === "apikey") {
       return (
-        <LordIcon
-          src={LORDICON_LIBRARY.lockClosed}
+        <AnimateIcon
+          src="lockClosed"
           colors={LORDICON_THEMES.dark}
           size={16}
           trigger="hover"
@@ -192,9 +192,9 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
 
   if (projects.length === 0) {
     return (
-      <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-3 rounded-md bg-blue-950/15 px-5 py-2 text-center">
-        <LordIcon
-          src={LORDICON_LIBRARY.folderPlus}
+      <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-3 rounded-lg bg-blue-950/10 px-5 py-2 text-center shadow">
+        <AnimateIcon
+          src="folderPlus"
           colors={LORDICON_THEMES.dark}
           size={26}
           trigger="hover"
@@ -289,13 +289,13 @@ export const DeleteActionButton = ({
       )}
       onClick={handleClick}
     >
-      <LordIcon
-        src={LORDICON_LIBRARY.delete}
+      <AnimateIcon
+        src="delete"
         colors={LORDICON_THEMES.error}
         size={16}
         trigger="loop-on-hover"
         target="span"
-        stroke={0}
+        stroke="bold"
       />
       <span className="sr-only">Delete project</span>
     </span>
@@ -334,13 +334,12 @@ const ActionButtons = ({
         )}
         onClick={handleRenameClick}
       >
-        <LordIcon
-          src={LORDICON_LIBRARY.edit}
+        <AnimateIcon
+          src="edit"
           colors={LORDICON_THEMES.dark}
           size={16}
           trigger="hover"
           target="span"
-          stroke={0}
         />
         <span className="sr-only">Edit project name</span>
       </span>

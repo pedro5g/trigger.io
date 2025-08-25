@@ -18,10 +18,10 @@ import {
 } from "@/app/_components/ui/sidebar";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { getInitials } from "@/lib/utils";
-import { LordIcon } from "../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import { useServerAction } from "zsa-react";
 import { logoutAction } from "@/app/_actions/logout";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -50,9 +50,10 @@ export function NavUser() {
                   </div>
                 </>
               )}
-              <LordIcon
+
+              <AnimateIcon
+                src="threeDots"
                 colors={LORDICON_THEMES.dark}
-                src={LORDICON_LIBRARY.menu}
                 speed={5}
                 size={16}
                 target="button"
@@ -84,9 +85,9 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <LordIcon
+                <AnimateIcon
+                  src="user"
                   colors={LORDICON_THEMES.dark}
-                  src={LORDICON_LIBRARY.user}
                   size={20}
                   target="div"
                   trigger="hover"
@@ -97,9 +98,9 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <LordIcon
+                <AnimateIcon
+                  src="bell"
                   colors={LORDICON_THEMES.dark}
-                  src={LORDICON_LIBRARY.bell}
                   size={20}
                   target="div"
                   trigger="hover"
@@ -107,9 +108,9 @@ export function NavUser() {
                 Notifications
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <LordIcon
+                <AnimateIcon
+                  src="list"
                   colors={LORDICON_THEMES.dark}
-                  src={LORDICON_LIBRARY.list}
                   size={20}
                   target="div"
                   trigger="hover"
@@ -123,9 +124,9 @@ export function NavUser() {
               onClick={() => execute()}
               disabled={isLogoutPending}
             >
-              <LordIcon
+              <AnimateIcon
+                src="exitRoom"
                 colors={LORDICON_THEMES.dark}
-                src={LORDICON_LIBRARY.exitRoom}
                 size={20}
                 target="div"
                 trigger="hover"

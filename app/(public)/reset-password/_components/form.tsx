@@ -5,8 +5,7 @@ import { resetPasswordAction } from "../actions";
 import { Frown, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/app/_components/ui/button";
-import { LordIcon } from "@/app/_components/animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import { redirect, RedirectType } from "next/navigation";
 import { cn, logger, sleep } from "@/lib/utils";
 import { Logo } from "@/app/_components/logo";
@@ -18,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { StrongPassword } from "@/app/_components/rhf/strong-password";
 import { useState, useEffect } from "react";
 import { toast } from "@/app/_components/ui/sonner";
+import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
 
 interface ResetPasswordFormProps {
   token?: string;
@@ -138,8 +138,8 @@ export const ResetPasswordForm = ({
           href="/forgot-password?email="
         >
           Go to forgot password
-          <LordIcon
-            src={LORDICON_LIBRARY.arrow}
+          <AnimateIcon
+            src="arrow"
             size={20}
             colors={LORDICON_THEMES.dark}
             speed={0.5}
@@ -206,8 +206,8 @@ const ExpirationTimer = ({ expiresAt }: { expiresAt: number }) => {
     return (
       <div className="mb-6 animate-pulse rounded-xl border border-red-500/20 bg-gradient-to-br from-red-500/10 via-red-600/5 to-gray-900/95 p-4 text-red-50 backdrop-blur-md">
         <div className="flex items-center justify-center gap-2">
-          <LordIcon
-            src={LORDICON_LIBRARY.warning}
+          <AnimateIcon
+            src="warning"
             size={20}
             colors={LORDICON_THEMES.error}
             speed={0.5}
@@ -230,9 +230,8 @@ const ExpirationTimer = ({ expiresAt }: { expiresAt: number }) => {
       )}
     >
       <div className="flex items-center justify-center gap-2">
-        {/* <Clock className={cn("animate-pulse", getIconColor())} size={16} />*/}
-        <LordIcon
-          src={LORDICON_LIBRARY.clock}
+        <AnimateIcon
+          src="clock"
           size={20}
           colors={getIconColor()}
           speed={0.5}

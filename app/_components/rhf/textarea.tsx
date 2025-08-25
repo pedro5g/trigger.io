@@ -2,8 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Label } from "../ui/label";
-import { LordIcon } from "../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import {
   Controller,
   useFormContext,
@@ -12,6 +11,7 @@ import {
 } from "react-hook-form";
 import { useId } from "react";
 import { Textarea } from "../ui/textarea";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 interface TextareaFieldProps<T extends FieldValues>
   extends React.ComponentProps<"textarea"> {
@@ -59,11 +59,10 @@ export const TextareaField = <T extends FieldValues>({
             >
               {invalid && error?.message && (
                 <p className="inline-flex items-center gap-2 text-xs tracking-tight">
-                  <LordIcon
-                    src={LORDICON_LIBRARY.error55}
+                  <AnimateIcon
+                    src="error"
                     size={20}
                     colors={LORDICON_THEMES.error}
-                    speed={0.5}
                     trigger="mount"
                   />
                   {error?.message}

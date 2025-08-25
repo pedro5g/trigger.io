@@ -470,7 +470,27 @@
           this._loadedIconData = t = await Element._iconLoader(this.icon);
         else if (this.src) {
           const e = await fetch(this.src);
-          this._loadedIconData = t = await e.json();
+          if (this.src.endsWith(".json")) {
+            this._loadedIconData = t = await e.json();
+          }
+          // [This code snippet does not exist within original lib, i adding it after analyzed
+          // the sources in oficial web site: https://lordicon.com, there trey using:
+          // <lord-icon src="https://media.lordicon.com/icons/system/regular/58-call-phone.li" />
+          // NOTE thats src property do not consumes a .json file but true a .li file.
+          // These .li are a simple base64 encoded JSON and each character is obfuscated using XOR 42.
+          // I note thats .li files they are 50% to 80% smaller, even though they are not compressed files
+          // I believe this is because it eliminates all the identation of the original json ]
+
+          // .li are especial files with smallest size than .json
+          if (this.src.endsWith(".li")) {
+            this._loadedIconData = t = ((t) => {
+              const e = atob(t)
+                .split("")
+                .map((t) => String.fromCharCode(42 ^ t.charCodeAt(0)))
+                .join("");
+              return JSON.parse(e);
+            })(await e.text());
+          }
         }
       return t;
     }

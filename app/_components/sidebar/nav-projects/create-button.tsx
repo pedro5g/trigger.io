@@ -2,9 +2,8 @@
 
 import { useModalState } from "@/hooks/nuqs/use-modal-state";
 import { Button } from "../../ui/button";
-import { LORDICON_LIBRARY, LORDICON_THEMES, MODAL_NAMES } from "@/constants";
-import { FolderPlus } from "lucide-react";
-import { LordIcon } from "../../animate-icons/lord-icon";
+import { LORDICON_THEMES, MODAL_NAMES } from "@/constants";
+import { AnimateIcon } from "../../animate-icons/aniamtion-icon";
 
 export const CreateButton = () => {
   const { open } = useModalState();
@@ -16,13 +15,14 @@ export const CreateButton = () => {
       size="icon"
       className="ml-2 size-7"
     >
-      <LordIcon
-        src={LORDICON_LIBRARY.folderPlus}
+      <AnimateIcon
+        src="folderPlus"
         colors={LORDICON_THEMES.dark}
         size={16}
         trigger="hover"
         target="span"
       />
+
       <span className="sr-only">Create new project</span>
     </Button>
   );

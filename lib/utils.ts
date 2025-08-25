@@ -1,27 +1,10 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import {
-  LORDICON_LIBRARY,
-  LORDICON_THEMES,
-  type LordIconName,
-  type LordIconTheme,
-} from "@/constants";
+import { LORDICON_THEMES, type LordIconTheme } from "@/constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-export const getLordIconSrc = (name: LordIconName): string => {
-  return LORDICON_LIBRARY[name];
-};
-
-export const isValidLordIconName = (name: string): name is LordIconName => {
-  return name in LORDICON_LIBRARY;
-};
-
-export const getAllLordIconNames = (): LordIconName[] => {
-  return Object.keys(LORDICON_LIBRARY) as LordIconName[];
-};
 
 export const getLordIconTheme = (theme: LordIconTheme) => {
   return LORDICON_THEMES[theme];

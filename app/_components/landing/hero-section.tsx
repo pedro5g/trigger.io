@@ -3,10 +3,10 @@ import { Button } from "@/app/_components/ui/button";
 import { Webhook, Zap } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { MultiDeviceDemo } from "@/app/_components/landing/multi-device-demo";
-import { LordIcon } from "../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 export function HeroSection() {
   const [animating, setAnimating] = useState(false);
@@ -75,8 +75,8 @@ export function HeroSection() {
                 className="bg-blue-600 text-white hover:bg-blue-700"
               >
                 Start Free
-                <LordIcon
-                  src={LORDICON_LIBRARY.arrowRocket}
+                <AnimateIcon
+                  src="arrow"
                   size={16}
                   colors={LORDICON_THEMES.dark}
                   speed={0.5}

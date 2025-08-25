@@ -6,8 +6,7 @@ import { forgotPasswordAction } from "../actions";
 import { Button, buttonVariants } from "@/app/_components/ui/button";
 import { Loader2, MailCheckIcon } from "lucide-react";
 import Link from "next/link";
-import { LordIcon } from "@/app/_components/animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import { cn, logger } from "@/lib/utils";
 import { Logo } from "@/app/_components/logo";
 import { useForm } from "react-hook-form";
@@ -16,6 +15,7 @@ import { forgotPasswordSchema, type ForgotPasswordSchemaType } from "../schema";
 import { Form } from "@/app/_components/rhf/form";
 import { InputField } from "@/app/_components/rhf/input";
 import { toast } from "@/app/_components/ui/sonner";
+import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
 
 interface ForgotPasswordFormProps {
   email?: string;
@@ -135,8 +135,8 @@ export const ForgotPasswordForm = ({ email }: ForgotPasswordFormProps) => {
           )}
         >
           Go to reset form
-          <LordIcon
-            src={LORDICON_LIBRARY.arrow}
+          <AnimateIcon
+            src="arrow"
             size={20}
             colors={LORDICON_THEMES.dark}
             speed={0.5}

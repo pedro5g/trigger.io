@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { LORDICON_LIBRARY, LORDICON_THEMES, MODAL_NAMES } from "@/constants";
+import { LORDICON_THEMES, MODAL_NAMES } from "@/constants";
 import { Form } from "../rhf/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,9 +22,9 @@ import { EmojiSelector } from "../rhf/emoji-selector";
 import { useServerAction } from "zsa-react";
 import { createProjectAction } from "./actions/create-project";
 import { Loader2 } from "lucide-react";
-import { LordIcon } from "../animate-icons/lord-icon";
 import { toast } from "../ui/sonner";
 import { sleep } from "@/lib/utils";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 export const CreateProjectModal = () => {
   const { isOpen, openChange, close } = useModalState();
@@ -116,8 +116,8 @@ export const CreateProjectModal = () => {
               Register
               {isPending && <Loader2 className="animate-spin" />}
               {isSuccess && (
-                <LordIcon
-                  src={LORDICON_LIBRARY.success}
+                <AnimateIcon
+                  src="success"
                   size={20}
                   colors={LORDICON_THEMES.success}
                   speed={0.5}

@@ -2,8 +2,7 @@
 
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { LordIcon } from "../animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import {
   Controller,
   useFormContext,
@@ -11,7 +10,7 @@ import {
   type Path,
 } from "react-hook-form";
 import { useId, useState } from "react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 interface InputPasswordProps<T extends FieldValues>
   extends Omit<React.ComponentProps<"input">, "type" | "placeholder"> {
@@ -66,9 +65,22 @@ export const InputPassword = <T extends FieldValues>({
                 aria-controls="password"
               >
                 {isVisible ? (
-                  <EyeOffIcon size={16} aria-hidden="true" />
+                  <AnimateIcon
+                    src="eye"
+                    size={16}
+                    colors={LORDICON_THEMES.dark}
+                    state="hover-eye-lashes"
+                    trigger="mount"
+                    aria-hidden="true"
+                  />
                 ) : (
-                  <EyeIcon size={16} aria-hidden="true" />
+                  <AnimateIcon
+                    src="eye"
+                    size={16}
+                    colors={LORDICON_THEMES.dark}
+                    trigger="mount"
+                    aria-hidden="true"
+                  />
                 )}
               </button>
             </div>
@@ -80,12 +92,11 @@ export const InputPassword = <T extends FieldValues>({
               className="peer-aria-invalid:text-destructive mt-2"
             >
               {invalid && error?.message && (
-                <p className="inline-flex items-center gap-2 text-xs tracking-tight">
-                  <LordIcon
-                    src={LORDICON_LIBRARY.error55}
+                <p className="text-destructive inline-flex items-center gap-2 text-xs tracking-tight">
+                  <AnimateIcon
+                    src="error"
                     size={20}
                     colors={LORDICON_THEMES.error}
-                    speed={0.5}
                     trigger="mount"
                   />
                   {error?.message}

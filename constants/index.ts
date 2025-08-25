@@ -1,81 +1,3 @@
-export const LORDICON_LIBRARY = {
-  home: "https://cdn.lordicon.com/cnpvyndp.json",
-  user: "/icons/user.json",
-  settings: "/icons/settings.json",
-  menu: "/icons/menu.json",
-  search: "/icons/search.json",
-  close: "https://cdn.lordicon.com/zxvuvcnc.json",
-  arrow: "/icons/arrow.json",
-  folder: "/icons/folder.json",
-
-  download: "https://cdn.lordicon.com/nxaaasqd.json",
-  upload: "https://cdn.lordicon.com/fpmskzsv.json",
-  play: "https://cdn.lordicon.com/akqsdstj.json",
-  pause: "https://cdn.lordicon.com/akqsdstj.json",
-  refresh: "https://cdn.lordicon.com/wzwygmng.json",
-  save: "https://cdn.lordicon.com/jgnvfzqg.json",
-  delete: "/icons/delete.json",
-  edit: "/icons/edit.json",
-
-  mail: "https://cdn.lordicon.com/tkgyrmwc.json",
-  phone: "https://cdn.lordicon.com/srsgifqc.json",
-  message: "/icons/message.json",
-  notification: "https://cdn.lordicon.com/vspbqszr.json",
-  bell: "/icons/bell.json",
-
-  success: "/icons/success.json",
-  error: "https://cdn.lordicon.com/akqsdstj.json",
-  warning: "/icons/warning.json",
-  info: "https://cdn.lordicon.com/msoeawqm.json",
-  loading: "https://cdn.lordicon.com/msoeawqm.json",
-
-  heart: "/icons/heart.json",
-  like: "https://cdn.lordicon.com/pnhskdrd.json",
-  share: "https://cdn.lordicon.com/udwhdpkn.json",
-  star: "https://cdn.lordicon.com/rjzlnunf.json",
-  bookmark: "https://cdn.lordicon.com/gigfpovs.json",
-
-  image: "https://cdn.lordicon.com/tdtlrbly.json",
-  video: "https://cdn.lordicon.com/fgkmkuox.json",
-  music: "https://cdn.lordicon.com/wxnxiano.json",
-
-  cart: "/icons/cart.json",
-  bag: "https://cdn.lordicon.com/slkvcfos.json",
-  money: "https://cdn.lordicon.com/qhgmphtg.json",
-  card: "https://cdn.lordicon.com/qhgmphtg.json",
-
-  cloud: "https://cdn.lordicon.com/eszyyflr.json",
-  rain: "https://cdn.lordicon.com/kddagzqs.json",
-  clock: "/icons/clock.json",
-
-  wifi: "https://cdn.lordicon.com/anqzffqz.json",
-  bluetooth: "https://cdn.lordicon.com/akqsdstj.json",
-  battery: "https://cdn.lordicon.com/wcjauznp.json",
-  computer: "https://cdn.lordicon.com/cnpvyndp.json",
-  mobile: "https://cdn.lordicon.com/tkgyrmwc.json",
-
-  assignment: "/icons/assignment.json",
-
-  globe: "/icons/globe.json",
-  metrics: "/icons/metrics.json",
-  folderPlus: "/icons/folder-plus.json",
-  inbox: "/icons/inbox.json",
-  lockClosed: "/icons/lock-closed.json",
-  swap: "/icons/swap.json",
-  link: "/icons/link.json",
-  error55: "/icons/55-error.json",
-  arrowRocket: "/icons/arrow-rocket.json",
-  arrowDown: "/icons/arrow-down.json",
-  exitRoom: "/icons/exit-room.json",
-  code: "/icons/code.json",
-  increase: "/icons/increase.json",
-  thunderbolt: "/icons/thunderbolt.json",
-  list: "/icons/check-list.json",
-  document: "/icons/document.json",
-} as const;
-
-export type LordIconName = keyof typeof LORDICON_LIBRARY;
-
 export const LORDICON_THEMES = {
   default: {
     primary: "#121331",
@@ -112,3 +34,43 @@ export const MODAL_NAMES = {
 } as const;
 
 export type ModalNames = (typeof MODAL_NAMES)[keyof typeof MODAL_NAMES];
+
+export const ANIMATE_ICON_VARIANTS = {
+  error: "/icons/error.li",
+  success: "/icons/success.li",
+  assignment: "/icons/assignment.li",
+  globe: "/icons/globe.li",
+  menu: "/icons/menu.li",
+  threeDots: "/icons/three-dots.li",
+  user: "/icons/user.li",
+  metrics: "/icons/metrics.li",
+  settings: "/icons/settings.li",
+  folder: "/icons/folder.li",
+  folderPlus: "/icons/folder-plus.li",
+  inbox: "/icons/inbox.li",
+  lockClosed: "/icons/lock-closed.li",
+  swap: "/icons/swap.li",
+  link: "/icons/link.li",
+  arrowRocket: "/icons/arrow-rocket.li",
+  arrow: "/icons/arrow.li",
+  arrowDown: "/icons/arrow-down.li",
+  exitRoom: "/icons/exit-room.li",
+  code: "/icons/code.li",
+  increase: "/icons/increase.li",
+  decrease: "/icons/decrease.li",
+  thunderbolt: "/icons/thunderbolt.li",
+  list: "/icons/check-list.li",
+  document: "/icons/document.li",
+  clock: "/icons/clock.li",
+  delete: "/icons/delete.li",
+  edit: "/icons/edit.li",
+  heart: "/icons/heart.li",
+  warning: "/icons/warning.li",
+  message: "/icons/message.li",
+  bell: "/icons/bell.li",
+  cart: "/icons/cart.li",
+  close: "/icons/close.li",
+  eye: "/icons/eye.li",
+} as const;
+
+export type AnimateIconVariants = keyof typeof ANIMATE_ICON_VARIANTS;

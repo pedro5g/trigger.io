@@ -7,11 +7,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/app/_components/ui/sidebar";
-import { LordIcon } from "../animate-icons/lord-icon";
 import type { ReactElement } from "react";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 
 import Link from "next/link";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 export const MAIN_LINKS: {
   title: string;
@@ -22,9 +22,9 @@ export const MAIN_LINKS: {
     title: "Broadcast",
     href: "/broadcast",
     icon: (
-      <LordIcon
+      <AnimateIcon
+        src="inbox"
         colors={LORDICON_THEMES.dark}
-        src={LORDICON_LIBRARY.inbox}
         speed={5}
         size={20}
         target="a"
@@ -37,9 +37,9 @@ export const MAIN_LINKS: {
     title: "Projects",
     href: "/projects",
     icon: (
-      <LordIcon
+      <AnimateIcon
+        src="assignment"
         colors={LORDICON_THEMES.dark}
-        src={LORDICON_LIBRARY.assignment}
         speed={5}
         size={20}
         target="a"
@@ -51,9 +51,9 @@ export const MAIN_LINKS: {
     title: "API keys",
     href: "/api-keys",
     icon: (
-      <LordIcon
+      <AnimateIcon
+        src="lockClosed"
         colors={LORDICON_THEMES.dark}
-        src={LORDICON_LIBRARY.lockClosed}
         speed={5}
         size={20}
         target="a"
@@ -65,9 +65,9 @@ export const MAIN_LINKS: {
     title: "Webhooks",
     href: "/webhooks",
     icon: (
-      <LordIcon
+      <AnimateIcon
+        src="swap"
         colors={LORDICON_THEMES.dark}
-        src={LORDICON_LIBRARY.swap}
         speed={5}
         size={20}
         target="a"
@@ -79,9 +79,9 @@ export const MAIN_LINKS: {
     title: "Domais",
     href: "/domais",
     icon: (
-      <LordIcon
+      <AnimateIcon
+        src="globe"
         colors={LORDICON_THEMES.dark}
-        src={LORDICON_LIBRARY.globe}
         speed={5}
         size={20}
         target="a"
@@ -93,9 +93,9 @@ export const MAIN_LINKS: {
     title: "Metrics",
     href: "/metrics",
     icon: (
-      <LordIcon
+      <AnimateIcon
+        src="metrics"
         colors={LORDICON_THEMES.dark}
-        src={LORDICON_LIBRARY.metrics}
         speed={5}
         size={20}
         target="a"
@@ -107,9 +107,9 @@ export const MAIN_LINKS: {
     title: "Settings",
     href: "/settings",
     icon: (
-      <LordIcon
+      <AnimateIcon
+        src="settings"
         colors={LORDICON_THEMES.dark}
-        src={LORDICON_LIBRARY.settings}
         speed={5}
         size={20}
         target="a"

@@ -1,10 +1,10 @@
-import { LordIcon } from "@/app/_components/animate-icons/lord-icon";
 import { buttonVariants } from "@/app/_components/ui/button";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Logo } from "@/app/_components/logo";
+import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
 
 export default function Welcome() {
   return (
@@ -42,8 +42,8 @@ export default function Welcome() {
             )}
           >
             Go to login
-            <LordIcon
-              src={LORDICON_LIBRARY.exitRoom}
+            <AnimateIcon
+              src="exitRoom"
               size={20}
               colors={LORDICON_THEMES.dark}
               speed={0.5}

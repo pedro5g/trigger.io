@@ -8,10 +8,10 @@ import {
   type FieldValues,
   type Path,
 } from "react-hook-form";
-import { LordIcon } from "@/app/_components/animate-icons/lord-icon";
-import { LORDICON_LIBRARY, LORDICON_THEMES } from "@/constants";
+import { LORDICON_THEMES } from "@/constants";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { AnimateIcon } from "../animate-icons/aniamtion-icon";
 
 interface StrongPasswordProps<T extends FieldValues>
   extends Omit<ComponentProps<"input">, "type" | "placeholder" | "id"> {
@@ -103,9 +103,22 @@ export function StrongPassword<T extends FieldValues>({
                   aria-controls="password"
                 >
                   {isVisible ? (
-                    <EyeOffIcon size={16} aria-hidden="true" />
+                    <AnimateIcon
+                      src="eye"
+                      size={16}
+                      colors={LORDICON_THEMES.dark}
+                      state="hover-eye-lashes"
+                      trigger="mount"
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <EyeIcon size={16} aria-hidden="true" />
+                    <AnimateIcon
+                      src="eye"
+                      size={16}
+                      colors={LORDICON_THEMES.dark}
+                      trigger="mount"
+                      aria-hidden="true"
+                    />
                   )}
                 </button>
               </div>
@@ -139,16 +152,16 @@ export function StrongPassword<T extends FieldValues>({
         {strength.map((req, index) => (
           <li key={index} className="flex items-center gap-2">
             {req.met ? (
-              <LordIcon
-                src={LORDICON_LIBRARY.success}
+              <AnimateIcon
+                src="success"
                 size={16}
                 colors={LORDICON_THEMES.success}
                 speed={0.9}
                 trigger="mount"
               />
             ) : (
-              <LordIcon
-                src={LORDICON_LIBRARY.close}
+              <AnimateIcon
+                src="close"
                 size={16}
                 colors={LORDICON_THEMES.error}
                 speed={0.9}
