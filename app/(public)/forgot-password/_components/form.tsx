@@ -15,7 +15,7 @@ import { forgotPasswordSchema, type ForgotPasswordSchemaType } from "../schema";
 import { Form } from "@/app/_components/rhf/form";
 import { InputField } from "@/app/_components/rhf/input";
 import { toast } from "@/app/_components/ui/sonner";
-import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
+import { AnimateIcon } from "@/app/_components/animate-icons/animation-icon";
 
 interface ForgotPasswordFormProps {
   email?: string;

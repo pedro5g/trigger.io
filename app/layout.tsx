@@ -4,7 +4,6 @@ import { JetBrains_Mono } from "next/font/google";
 import { UserProvider } from "@/lib/auth/provider";
 import { getUser } from "@/lib/auth/server";
 import "./globals.css";
-import { RootProvider } from "./_components/providers";
 
 const jetBrainsMono = JetBrains_Mono({
   variable: "--font-jet-brains-mono",
@@ -27,9 +26,7 @@ export default function RootLayout({
     <html className="dark" lang="en">
       <body className={`${jetBrainsMono.className} antialiased`}>
         <div className="min-h-svh w-full">
-          <RootProvider>
-            <UserProvider userPromise={user}>{children}</UserProvider>
-          </RootProvider>
+          <UserProvider userPromise={user}>{children}</UserProvider>
         </div>
         <Toaster />
       </body>

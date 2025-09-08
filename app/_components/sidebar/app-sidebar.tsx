@@ -14,15 +14,11 @@ import { Logo } from "../logo";
 
 export function AppSidebar() {
   return (
-    <Sidebar className="bg-blue-950/10" variant="inset">
-      <SidebarHeader className="bg-blue-950/10">
+    <Sidebar variant="inset">
+      <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              asChild
-              className="hover:bg-blue-950/20 data-[active=true]:bg-blue-950/20"
-            >
+            <SidebarMenuButton size="lg" asChild>
               <span className="flex items-center">
                 <Logo width={30} height={30} />
                 <div className="mt-2 flex items-center text-left text-sm">
@@ -34,11 +30,11 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="bg-blue-950/10 p-0">
+      <SidebarContent className="p-0">
         <NavMain />
         <NavProjects />
       </SidebarContent>
-      <SidebarFooter className="bg-blue-950/10">
+      <SidebarFooter>
         <NavUser />
       </SidebarFooter>
     </Sidebar>

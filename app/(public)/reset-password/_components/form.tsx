@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { StrongPassword } from "@/app/_components/rhf/strong-password";
 import { useState, useEffect } from "react";
 import { toast } from "@/app/_components/ui/sonner";
-import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
+import { AnimateIcon } from "@/app/_components/animate-icons/animation-icon";
 
 interface ResetPasswordFormProps {
   token?: string;

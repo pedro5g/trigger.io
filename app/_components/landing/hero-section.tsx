@@ -6,7 +6,7 @@ import { MultiDeviceDemo } from "@/app/_components/landing/multi-device-demo";
 import { LORDICON_THEMES } from "@/constants";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../animate-icons/animation-icon";
 
 export function HeroSection() {
   const [animating, setAnimating] = useState(false);

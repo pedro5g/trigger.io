@@ -8,7 +8,7 @@ import {
   type ExternalToast,
 } from "sonner";
 import { LORDICON_THEMES } from "@/constants";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../animate-icons/animation-icon";
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme();

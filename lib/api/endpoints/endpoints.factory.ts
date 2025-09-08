@@ -100,7 +100,13 @@ export function createEndpoints(API: HttpClient) {
     projectId,
   }: P) => {
     return safeHttpClient(() =>
-      API.get<ApiGetProjectResponse>(`/project/${projectId}get`),
+      API.get<ApiGetProjectResponse>(`/project/${projectId}/get`, {
+        cache: "force-cache",
+        next: {
+          revalidate: 600000,
+          tags: ["project", projectId],
+        },
+      }),
     );
   };
 

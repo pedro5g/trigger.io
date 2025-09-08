@@ -17,8 +17,8 @@ import { useServerAction } from "zsa-react";
 import { changeProjectNameAction } from "./actions/change-project-name";
 import { buttonVariants } from "../../ui/button";
 import { cn } from "@/lib/utils";
-import { useModalState } from "@/hooks/nuqs/use-modal-state";
-import { AnimateIcon } from "../../animate-icons/aniamtion-icon";
+import { useModalState } from "@/hooks/use-modal-state";
+import { AnimateIcon } from "../../animate-icons/animation-icon";
 
 interface ProjectData {
   id: string;
@@ -88,7 +88,7 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
     const keys = Object.keys(items);
     if (keys.length === 0) return [];
 
-    return [keys[1]]; // position 1 because 0 refer to root id
+    return [keys[1]]; // using position 1, because 0 refer to root id
   }, [items]);
 
   const onRename = useCallback(
@@ -129,6 +129,51 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
   useEffect(() => {
     tree.rebuildTree();
   }, [projects, tree]);
+
+  if (projects.length === 0) {
+    return (
+      <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-3 rounded-lg px-5 py-2 text-center shadow">
+        <AnimateIcon
+          src="folderPlus"
+          colors={LORDICON_THEMES.dark}
+          size={26}
+          trigger="hover"
+          target="div"
+        />
+        <p className="text-sm">No project found</p>
+        <span className="text-xs">Tip: create your first project</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-full flex-col gap-2 *:first:grow">
+      <Tree indent={indent} tree={tree}>
+        <AssistiveTreeDescription tree={tree} />
+        {tree.getItems().map((item) => {
+          return (
+            <TreeItem
+              className="bg-transparent hover:bg-transparent in-data-[selected=false]:bg-transparent"
+              item={item}
+              key={item.getId()}
+            >
+              <FolderItem isError={isError} item={item} />
+            </TreeItem>
+          );
+        })}
+      </Tree>
+    </div>
+  );
+}
+
+interface FolderItemProps {
+  item: ItemInstance<TreeItem>;
+  isError: boolean;
+}
+
+const FolderItem = ({ item, isError }: FolderItemProps) => {
+  const itemData = item.getItemData();
+  const isFolder = itemData.type === "root" || itemData.type === "project";
 
   const getItemIcon = useCallback((item: ItemInstance<TreeItem>) => {
     const itemData = item.getItemData();
@@ -180,100 +225,62 @@ export function ProjectsTreeClient({ projects }: ProjectsTreeClientProps) {
     return null;
   }, []);
 
-  const handleRenameClick = useCallback(
-    (itemId: string) => {
-      const item = tree.getItems().find((i) => i.getId() === itemId);
-      if (item) {
-        item.startRenaming();
-      }
-    },
-    [tree],
-  );
+  const handleRenameClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    item.startRenaming();
+  }, []);
 
-  if (projects.length === 0) {
-    return (
-      <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-3 rounded-lg bg-blue-950/10 px-5 py-2 text-center shadow">
-        <AnimateIcon
-          src="folderPlus"
-          colors={LORDICON_THEMES.dark}
-          size={26}
-          trigger="hover"
-          target="div"
-        />
-        <p className="text-sm">No project found</p>
-        <span className="text-xs">Tip: create your first project</span>
-      </div>
-    );
-  }
+  const isRenaming = item.isRenaming();
 
   return (
-    <div className="flex h-full flex-col gap-2 *:first:grow">
-      <Tree indent={indent} tree={tree}>
-        <AssistiveTreeDescription tree={tree} />
-        {tree.getItems().map((item) => {
-          const itemData = item.getItemData();
-          const isFolder =
-            itemData.type === "root" || itemData.type === "project";
-
-          return (
-            <TreeItem
-              className="bg-transparent hover:bg-transparent in-data-[selected=false]:bg-transparent"
-              key={item.getId()}
-              item={item}
-            >
-              <TreeItemLabel className="inline-flex w-full items-center bg-transparent hover:bg-blue-950/20 in-data-[selected=true]:bg-blue-950/15">
-                <span className="peer flex w-fit items-center gap-2">
-                  {getItemIcon(item)}
-                  {item.isRenaming() ? (
-                    <div
-                      style={{
-                        marginLeft: `${item.getItemMeta().level * 20}px`,
-                      }}
-                    >
-                      <Input
-                        data-error={isError}
-                        className="h-auto rounded py-0 text-sm focus:ring-0 focus-visible:border-blue-500 focus-visible:ring-0 data-[error='true']:focus-visible:border-red-400"
-                        {...item.getRenameInputProps()}
-                      />
-                    </div>
-                  ) : (
-                    item.getItemName()
-                  )}
-                </span>
-                {isFolder && (
-                  <ActionButtons
-                    itemId={item.getId()}
-                    itemName={item.getItemName()}
-                    onRenameClick={handleRenameClick}
-                  />
-                )}
-              </TreeItemLabel>
-            </TreeItem>
-          );
-        })}
-      </Tree>
-    </div>
+    <TreeItemLabel className="inline-flex w-full items-center bg-transparent">
+      <span className="peer flex w-fit items-center gap-2">
+        {getItemIcon(item)}
+        {isRenaming ? (
+          <div
+            style={{
+              marginLeft: `${item.getItemMeta().level * 20}px`,
+            }}
+          >
+            <Input
+              data-error={isError}
+              className="h-auto rounded py-0 text-sm focus:ring-0 focus-visible:border-blue-500 focus-visible:ring-0 data-[error='true']:focus-visible:border-red-400"
+              {...item.getRenameInputProps()}
+            />
+          </div>
+        ) : (
+          item.getItemName()
+        )}
+      </span>
+      {isFolder && (
+        <div className="ml-auto inline-flex items-center gap-2">
+          <DeleteActionButton
+            itemId={item.getId()}
+            itemName={item.getItemName()}
+          />
+          <EditProjectName onClick={handleRenameClick} />
+        </div>
+      )}
+    </TreeItemLabel>
   );
-}
+};
 
 interface DeleteActionButtonProps {
   itemId: string;
   itemName: string;
 }
 
-export const DeleteActionButton = ({
-  itemId,
-  itemName,
-}: DeleteActionButtonProps) => {
-  const { open } = useModalState();
+const DeleteActionButton = ({ itemId, itemName }: DeleteActionButtonProps) => {
+  const { open } = useModalState(MODAL_NAMES.DISABLE_PROJECT);
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      open(MODAL_NAMES.DISABLE_PROJECT, itemId + "&" + itemName);
+      open(itemId + "&" + itemName);
     },
-    [itemId, itemName, open],
+    [itemId, itemName],
   );
 
   return (
@@ -302,48 +309,32 @@ export const DeleteActionButton = ({
   );
 };
 
-const ActionButtons = ({
-  itemId,
-  itemName,
-  onRenameClick,
-}: {
-  itemId: string;
-  itemName: string;
-  onRenameClick: (itemId: string) => void;
-}) => {
-  const handleRenameClick = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      onRenameClick(itemId);
-    },
-    [itemId, onRenameClick],
-  );
+interface EditProjectNameProps {
+  onClick: (e: React.MouseEvent) => void;
+}
 
+const EditProjectName = ({ onClick }: EditProjectNameProps) => {
   return (
-    <div className="ml-auto inline-flex items-center gap-2">
-      <span
-        role="button"
-        tabIndex={0}
-        className={cn(
-          buttonVariants({
-            size: "icon",
-            variant: "outline",
-          }),
-          "size-6 hover:bg-transparent",
-        )}
-        onClick={handleRenameClick}
-      >
-        <AnimateIcon
-          src="edit"
-          colors={LORDICON_THEMES.dark}
-          size={16}
-          trigger="hover"
-          target="span"
-        />
-        <span className="sr-only">Edit project name</span>
-      </span>
-      <DeleteActionButton itemId={itemId} itemName={itemName} />
-    </div>
+    <span
+      role="button"
+      tabIndex={0}
+      className={cn(
+        buttonVariants({
+          size: "icon",
+          variant: "outline",
+        }),
+        "size-6 hover:bg-transparent",
+      )}
+      onClick={onClick}
+    >
+      <AnimateIcon
+        src="edit"
+        colors={LORDICON_THEMES.dark}
+        size={16}
+        trigger="hover"
+        target="span"
+      />
+      <span className="sr-only">Edit project name</span>
+    </span>
   );
 };

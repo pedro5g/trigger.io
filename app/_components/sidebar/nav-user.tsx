@@ -21,7 +21,7 @@ import { getInitials } from "@/lib/utils";
 import { LORDICON_THEMES } from "@/constants";
 import { useServerAction } from "zsa-react";
 import { logoutAction } from "@/app/_actions/logout";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../animate-icons/animation-icon";
 
 export function NavUser() {
   const { isMobile } = useSidebar();

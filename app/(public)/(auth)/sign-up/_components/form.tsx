@@ -17,7 +17,7 @@ import { StrongPassword } from "@/app/_components/rhf/strong-password";
 import { redirect } from "next/navigation";
 import { logger, sleep } from "@/lib/utils";
 import { toast } from "@/app/_components/ui/sonner";
-import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
+import { AnimateIcon } from "@/app/_components/animate-icons/animation-icon";
 
 export const SignUpForm = () => {
   const methods = useForm<SignUpSchemaType>({

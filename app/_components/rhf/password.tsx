@@ -9,8 +9,10 @@ import {
   type FieldValues,
   type Path,
 } from "react-hook-form";
-import { useId, useState } from "react";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { useCallback, useId, useState } from "react";
+import { AnimateIcon } from "../animate-icons/animation-icon";
+import { FieldMessageError } from "./field-message-error";
+import { VisibleIndicator } from "./visible-indicator";
 
 interface InputPasswordProps<T extends FieldValues>
   extends Omit<React.ComponentProps<"input">, "type" | "placeholder"> {
@@ -28,7 +30,10 @@ export const InputPassword = <T extends FieldValues>({
   const id = useId();
   const { control } = useFormContext<T>();
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility = useCallback(
+    () => setIsVisible(!isVisible),
+    [isVisible],
+  );
 
   return (
     <Controller
@@ -56,33 +61,10 @@ export const InputPassword = <T extends FieldValues>({
                 ref={ref}
                 {...props}
               />
-              <button
-                className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                type="button"
-                onClick={toggleVisibility}
-                aria-label={isVisible ? "Hide password" : "Show password"}
-                aria-pressed={isVisible}
-                aria-controls="password"
-              >
-                {isVisible ? (
-                  <AnimateIcon
-                    src="eye"
-                    size={16}
-                    colors={LORDICON_THEMES.dark}
-                    state="hover-eye-lashes"
-                    trigger="mount"
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <AnimateIcon
-                    src="eye"
-                    size={16}
-                    colors={LORDICON_THEMES.dark}
-                    trigger="mount"
-                    aria-hidden="true"
-                  />
-                )}
-              </button>
+              <VisibleIndicator
+                isVisible={isVisible}
+                toggleVisibility={toggleVisibility}
+              />
             </div>
             <div
               id={id}
@@ -91,17 +73,7 @@ export const InputPassword = <T extends FieldValues>({
               aria-atomic="true"
               className="peer-aria-invalid:text-destructive mt-2"
             >
-              {invalid && error?.message && (
-                <p className="text-destructive inline-flex items-center gap-2 text-xs tracking-tight">
-                  <AnimateIcon
-                    src="error"
-                    size={20}
-                    colors={LORDICON_THEMES.error}
-                    trigger="mount"
-                  />
-                  {error?.message}
-                </p>
-              )}
+              <FieldMessageError invalid={invalid} message={error?.message} />
             </div>
           </div>
         );

@@ -1,16 +1,16 @@
 "use client";
 
-import { useModalState } from "@/hooks/nuqs/use-modal-state";
+import { useModalState } from "@/hooks/use-modal-state";
 import { Button } from "../../ui/button";
 import { LORDICON_THEMES, MODAL_NAMES } from "@/constants";
-import { AnimateIcon } from "../../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../../animate-icons/animation-icon";
 
 export const CreateButton = () => {
-  const { open } = useModalState();
+  const { open } = useModalState(MODAL_NAMES.CREATE_PROJECT);
 
   return (
     <Button
-      onClick={() => open(MODAL_NAMES.CREATE_PROJECT)}
+      onClick={() => open()}
       variant="outline"
       size="icon"
       className="ml-2 size-7"

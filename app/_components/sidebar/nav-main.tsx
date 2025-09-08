@@ -11,7 +11,8 @@ import type { ReactElement } from "react";
 import { LORDICON_THEMES } from "@/constants";
 
 import Link from "next/link";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../animate-icons/animation-icon";
+import { usePathname } from "next/navigation";
 
 export const MAIN_LINKS: {
   title: string;
@@ -120,17 +121,17 @@ export const MAIN_LINKS: {
 ];
 
 export function NavMain() {
+  const pathname = usePathname();
+
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Features</SidebarGroupLabel>
       <SidebarMenu>
         {MAIN_LINKS.map((item) => {
+          const isActive = pathname === item.href;
           return (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                className="hover:bg-blue-950/20 focus-visible:bg-blue-950/25"
-                asChild
-              >
+              <SidebarMenuButton asChild isActive={isActive}>
                 <Link href={item.href}>
                   {item.icon}
                   {item.title}

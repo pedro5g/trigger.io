@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Webhook, Zap, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LORDICON_THEMES } from "@/constants";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../animate-icons/animation-icon";
 
 const FEATURES = [
   {

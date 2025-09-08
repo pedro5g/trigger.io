@@ -17,7 +17,7 @@ import { toast } from "@/app/_components/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputPassword } from "@/app/_components/rhf/password";
 import { logger, sleep } from "@/lib/utils";
-import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
+import { AnimateIcon } from "@/app/_components/animate-icons/animation-icon";
 
 interface SignInFormProps {
   email?: string;

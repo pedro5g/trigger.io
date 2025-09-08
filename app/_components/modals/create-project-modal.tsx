@@ -1,5 +1,5 @@
 "use client";
-import { useModalState } from "@/hooks/nuqs/use-modal-state";
+import { useModalState } from "@/hooks/use-modal-state";
 import {
   Dialog,
   DialogContent,
@@ -24,10 +24,12 @@ import { createProjectAction } from "./actions/create-project";
 import { Loader2 } from "lucide-react";
 import { toast } from "../ui/sonner";
 import { sleep } from "@/lib/utils";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../animate-icons/animation-icon";
 
 export const CreateProjectModal = () => {
-  const { isOpen, openChange, close } = useModalState();
+  const { isOpen, openChange, close } = useModalState(
+    MODAL_NAMES.CREATE_PROJECT,
+  );
 
   const methods = useForm({
     resolver: zodResolver(createProjectSchema),
@@ -66,11 +68,7 @@ export const CreateProjectModal = () => {
   };
 
   return (
-    <Dialog
-      modal
-      open={isOpen}
-      onOpenChange={(isOpen) => openChange(isOpen, MODAL_NAMES.CREATE_PROJECT)}
-    >
+    <Dialog modal open={isOpen} onOpenChange={openChange}>
       <DialogContent className="rounded-3xl border-4 border-blue-950/40 bg-zinc-950 before:absolute before:inset-0 before:-z-10 before:bg-blue-950/10">
         <div className="flex flex-col items-center gap-2">
           <DialogHeader>

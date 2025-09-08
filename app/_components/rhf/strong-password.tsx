@@ -1,6 +1,13 @@
 "use client";
 
-import { useId, useMemo, useState, type ComponentProps } from "react";
+import {
+  memo,
+  useCallback,
+  useId,
+  useMemo,
+  useState,
+  type ComponentProps,
+} from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import {
   Controller,
@@ -11,7 +18,8 @@ import {
 import { LORDICON_THEMES } from "@/constants";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { AnimateIcon } from "../animate-icons/animation-icon";
+import { VisibleIndicator } from "./visible-indicator";
 
 interface StrongPasswordProps<T extends FieldValues>
   extends Omit<ComponentProps<"input">, "type" | "placeholder" | "id"> {
@@ -29,7 +37,10 @@ export function StrongPassword<T extends FieldValues>({
 
   const { control, watch } = useFormContext<T>();
 
-  const toggleVisibility = () => setIsVisible((prevState) => !prevState);
+  const toggleVisibility = useCallback(
+    () => setIsVisible((prevState) => !prevState),
+    [isVisible],
+  );
 
   const checkStrength = (pass: string) => {
     const requirements = [
@@ -94,33 +105,10 @@ export function StrongPassword<T extends FieldValues>({
                   ref={ref}
                   {...props}
                 />
-                <button
-                  className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                  type="button"
-                  onClick={toggleVisibility}
-                  aria-label={isVisible ? "Hide password" : "Show password"}
-                  aria-pressed={isVisible}
-                  aria-controls="password"
-                >
-                  {isVisible ? (
-                    <AnimateIcon
-                      src="eye"
-                      size={16}
-                      colors={LORDICON_THEMES.dark}
-                      state="hover-eye-lashes"
-                      trigger="mount"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <AnimateIcon
-                      src="eye"
-                      size={16}
-                      colors={LORDICON_THEMES.dark}
-                      trigger="mount"
-                      aria-hidden="true"
-                    />
-                  )}
-                </button>
+                <VisibleIndicator
+                  isVisible={isVisible}
+                  toggleVisibility={toggleVisibility}
+                />
               </div>
             </div>
           );
@@ -149,37 +137,48 @@ export function StrongPassword<T extends FieldValues>({
       </p>
 
       <ul className="space-y-1.5" aria-label="Password requirements">
-        {strength.map((req, index) => (
-          <li key={index} className="flex items-center gap-2">
-            {req.met ? (
-              <AnimateIcon
-                src="success"
-                size={16}
-                colors={LORDICON_THEMES.success}
-                speed={0.9}
-                trigger="mount"
-              />
-            ) : (
-              <AnimateIcon
-                src="close"
-                size={16}
-                colors={LORDICON_THEMES.error}
-                speed={0.9}
-                delay={180}
-                trigger="mount"
-              />
-            )}
-            <span
-              className={`text-xs ${req.met ? "text-emerald-600" : "text-muted-foreground"}`}
-            >
-              {req.text}
-              <span className="sr-only">
-                {req.met ? " - Requirement met" : " - Requirement not met"}
-              </span>
-            </span>
-          </li>
+        {strength.map((tip, index) => (
+          <PasswordTip {...tip} key={index} />
         ))}
       </ul>
     </div>
   );
 }
+
+interface PasswordTipProps {
+  met: boolean;
+  text: string;
+}
+
+const PasswordTip = memo(({ met, text }: PasswordTipProps) => {
+  return (
+    <li className="animate-in flex items-center gap-2 transition-opacity">
+      {met ? (
+        <AnimateIcon
+          src="success"
+          size={16}
+          colors={LORDICON_THEMES.success}
+          speed={0.9}
+          trigger="mount"
+        />
+      ) : (
+        <AnimateIcon
+          src="close"
+          size={16}
+          colors={LORDICON_THEMES.error}
+          speed={0.9}
+          delay={180}
+          trigger="mount"
+        />
+      )}
+      <span
+        className={`text-xs ${met ? "text-emerald-600" : "text-muted-foreground"}`}
+      >
+        {text}
+        <span className="sr-only">
+          {met ? " - Requirement met" : " - Requirement not met"}
+        </span>
+      </span>
+    </li>
+  );
+});

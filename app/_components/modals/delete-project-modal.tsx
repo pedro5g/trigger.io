@@ -1,7 +1,11 @@
 "use client";
 
-import { CircleAlertIcon } from "lucide-react";
-import { Button } from "@/app/_components/ui/button";
+import {
+  Button,
+  ButtonKbd,
+  ButtonLabel,
+  ButtonLoader,
+} from "@/app/_components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -11,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/app/_components/ui/dialog";
-import { useModalState } from "@/hooks/nuqs/use-modal-state";
+import { useModalState } from "@/hooks/use-modal-state";
 import { MODAL_NAMES } from "@/constants";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,8 +34,10 @@ import { deleteProjectAction } from "./actions/delete-project";
 const CONFIRMATION_TEXT = "DELETE";
 
 export const DeleteProjectModal = () => {
-  const { isOpen, openChange, target, close } = useModalState();
-  const [projectId, projectName] = target.split("&");
+  const { openChange, target, close, isOpen } = useModalState(
+    MODAL_NAMES.DISABLE_PROJECT,
+  );
+  const [projectId, projectName] = (target || "").split("&");
 
   const methods = useForm({
     resolver: zodResolver(deleteProjectSchema),
@@ -61,13 +67,9 @@ export const DeleteProjectModal = () => {
       projectId,
     });
   };
-
+  console.log("render");
   return (
-    <Dialog
-      modal
-      open={isOpen}
-      onOpenChange={(isOpen) => openChange(isOpen, MODAL_NAMES.DISABLE_PROJECT)}
-    >
+    <Dialog modal open={isOpen} onOpenChange={openChange}>
       <DialogContent className="rounded-3xl border-4 border-red-950/40 bg-zinc-950 before:absolute before:inset-0 before:-z-10 before:bg-red-950/10">
         <div className="flex flex-col items-center gap-2">
           <DialogHeader>
@@ -97,50 +99,19 @@ export const DeleteProjectModal = () => {
             <DialogFooter className="flex-col sm:justify-start">
               <Button
                 type="button"
-                className="relative gap-1 bg-red-500 px-3 text-red-100 hover:bg-red-500/90 disabled:cursor-not-allowed"
                 disabled={inputValue !== CONFIRMATION_TEXT}
+                variant={"destructive"}
                 size="sm"
+                loading={isPending}
               >
-                <span
-                  data-loading={isPending}
-                  className="absolute inset-0 flex w-full items-center justify-center data-[loading='false']:invisible"
-                >
-                  <span className="inline-flex items-center gap-1">
-                    <span className="animate-plop h-1 w-1 rounded-full bg-red-200"></span>
-                    <span className="animate-plop2 h-1 w-1 rounded-full bg-red-200"></span>
-                    <span className="animate-plop3 h-1 w-1 rounded-full bg-red-200"></span>
-                  </span>
-                </span>
-                <span
-                  data-loading={isPending}
-                  className="inline-flex min-w-0 items-center justify-center gap-1 truncate data-[loading='true']:invisible"
-                >
-                  Delete Project
-                </span>
-                <div
-                  data-loading={isPending}
-                  className="flex items-center gap-1 pl-1 data-[loading='true']:invisible"
-                >
-                  <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded-sm bg-red-400 px-1 text-base font-normal text-red-100 uppercase select-none">
-                    ↩
-                  </kbd>
-                </div>
+                <ButtonLabel>Delete Project</ButtonLabel>
+                <ButtonLoader />
+                <ButtonKbd>↩</ButtonKbd>
               </Button>
               <DialogClose asChild>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="gap-1 px-3"
-                >
-                  <span className="visible inline-flex min-w-0 items-center justify-center gap-1 truncate">
-                    Cancel
-                  </span>
-                  <div className="flex items-center gap-1 pl-1">
-                    <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded-sm bg-zinc-800/80 px-1 text-xs font-normal text-zinc-200 select-none">
-                      Esc
-                    </kbd>
-                  </div>
+                <Button type="button" variant="outline" size="sm">
+                  <ButtonLabel>Cancel</ButtonLabel>
+                  <ButtonKbd>Esc</ButtonKbd>
                 </Button>
               </DialogClose>
             </DialogFooter>

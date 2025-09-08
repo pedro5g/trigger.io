@@ -4,7 +4,7 @@ import { unstable_ViewTransition as ViewTransition } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Logo } from "@/app/_components/logo";
-import { AnimateIcon } from "@/app/_components/animate-icons/aniamtion-icon";
+import { AnimateIcon } from "@/app/_components/animate-icons/animation-icon";
 
 export default function Welcome() {
   return (

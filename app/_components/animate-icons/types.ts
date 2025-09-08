@@ -38,6 +38,7 @@ export interface AnimateIconProps {
     tertiary?: string;
     quaternary?: string;
   };
+  ["aria-hidden"]?: string | boolean | undefined;
   size?: number;
   delay?: number;
   stroke?: "light" | "regular" | "bold";

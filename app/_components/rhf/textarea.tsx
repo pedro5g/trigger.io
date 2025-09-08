@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import { Label } from "../ui/label";
-import { LORDICON_THEMES } from "@/constants";
 import {
   Controller,
   useFormContext,
@@ -11,7 +10,7 @@ import {
 } from "react-hook-form";
 import { useId } from "react";
 import { Textarea } from "../ui/textarea";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { FieldMessageError } from "./field-message-error";
 
 interface TextareaFieldProps<T extends FieldValues>
   extends React.ComponentProps<"textarea"> {
@@ -20,12 +19,14 @@ interface TextareaFieldProps<T extends FieldValues>
 }
 
 export const TextareaField = <T extends FieldValues>({
+  id,
   label,
   className,
   name,
+  readOnly,
   ...props
 }: TextareaFieldProps<T>) => {
-  const id = useId();
+  const compId = id ? id : useId();
   const { control } = useFormContext<T>();
 
   return (
@@ -38,36 +39,36 @@ export const TextareaField = <T extends FieldValues>({
       }) => {
         return (
           <div className="*:not-first:mt-3">
-            {label && <Label htmlFor={id}>{label}</Label>}
+            {label && <Label htmlFor={compId}>{label}</Label>}
             <Textarea
-              id={id}
+              id={compId}
               name={name}
+              data-readonly={readOnly}
               onBlur={onBlur}
-              onChange={onChange}
+              onChange={(e) => {
+                if (readOnly) return;
+                onChange(e);
+              }}
               ref={ref}
               value={value}
-              className={cn("peer", className)}
+              className={cn(
+                "peer",
+                readOnly &&
+                  "data-[readonly=true]:focus-visible:border-input cursor-default resize-none data-[readonly=true]:focus-visible:ring-0",
+                className,
+              )}
               aria-invalid={invalid}
+              readOnly={readOnly}
               {...props}
             />
             <div
-              id={id}
+              id={compId}
               role="alert"
               aria-live="polite"
               aria-atomic="true"
               className="peer-aria-invalid:text-destructive mt-2"
             >
-              {invalid && error?.message && (
-                <p className="inline-flex items-center gap-2 text-xs tracking-tight">
-                  <AnimateIcon
-                    src="error"
-                    size={20}
-                    colors={LORDICON_THEMES.error}
-                    trigger="mount"
-                  />
-                  {error?.message}
-                </p>
-              )}
+              <FieldMessageError invalid={invalid} message={error?.message} />
             </div>
           </div>
         );

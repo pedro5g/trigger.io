@@ -14,6 +14,7 @@ import {
   EmojiPickerFooter,
   EmojiPickerSearch,
 } from "../ui/emoji-picker";
+import { cn } from "@/lib/utils";
 
 interface EmojiPickerProps<T extends FieldValues>
   extends React.ComponentProps<"input"> {
@@ -23,6 +24,7 @@ interface EmojiPickerProps<T extends FieldValues>
 export const EmojiSelector = <T extends FieldValues>({
   className,
   name,
+  readOnly,
 }: EmojiPickerProps<T>) => {
   const { control } = useFormContext<T>();
 
@@ -34,7 +36,17 @@ export const EmojiSelector = <T extends FieldValues>({
         return (
           <Popover>
             <PopoverTrigger asChild>
-              <Button size={"icon"} variant={"outline"}>
+              <Button
+                data-readonly={readOnly}
+                size={"icon"}
+                variant={"outline"}
+                className={cn(
+                  readOnly &&
+                    "cursor-default data-[readonly=true]:disabled:opacity-100",
+                  className,
+                )}
+                disabled={readOnly}
+              >
                 {!value ? <FaceIcon /> : value}
               </Button>
             </PopoverTrigger>
@@ -45,6 +57,7 @@ export const EmojiSelector = <T extends FieldValues>({
                 className="h-[342px]"
                 defaultValue={value}
                 onEmojiSelect={({ emoji }) => {
+                  if (readOnly) return;
                   if (emoji === value) {
                     onChange("");
                   } else {

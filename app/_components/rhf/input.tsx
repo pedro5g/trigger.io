@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { LORDICON_THEMES } from "@/constants";
 import {
   Controller,
   useFormContext,
@@ -11,18 +10,21 @@ import {
   type Path,
 } from "react-hook-form";
 import { useId } from "react";
-import { AnimateIcon } from "../animate-icons/aniamtion-icon";
+import { FieldMessageError } from "./field-message-error";
 
 interface InputFieldProps<T extends FieldValues>
   extends React.ComponentProps<"input"> {
   name: Path<T>;
   label?: string;
+  labelClassName?: string;
 }
 
 export const InputField = <T extends FieldValues>({
   label,
   className,
+  labelClassName,
   name,
+  readOnly,
   id,
   ...props
 }: InputFieldProps<T>) => {
@@ -39,15 +41,29 @@ export const InputField = <T extends FieldValues>({
       }) => {
         return (
           <div className="*:not-first:mt-3">
-            {label && <Label htmlFor={internalId}>{label}</Label>}
+            {label && (
+              <Label className={cn(labelClassName)} htmlFor={internalId}>
+                {label}
+              </Label>
+            )}
             <Input
+              data-readonly={readOnly}
               id={internalId}
               name={name}
               onBlur={onBlur}
-              onChange={onChange}
+              onChange={(e) => {
+                if (readOnly) return;
+                onChange(e);
+              }}
               ref={ref}
               value={value}
-              className={cn("peer", className)}
+              className={cn(
+                "peer",
+                readOnly &&
+                  "data-[readonly=true]:focus-visible:border-input cursor-default data-[readonly=true]:focus-visible:ring-0",
+                className,
+              )}
+              readOnly={readOnly}
               aria-invalid={invalid}
               {...props}
             />
@@ -58,17 +74,7 @@ export const InputField = <T extends FieldValues>({
               aria-atomic="true"
               className="peer-aria-invalid:text-destructive mt-2"
             >
-              {invalid && error?.message && (
-                <p className="text-destructive inline-flex items-center gap-2 text-xs tracking-tight">
-                  <AnimateIcon
-                    src="error"
-                    size={20}
-                    colors={LORDICON_THEMES.error}
-                    trigger="mount"
-                  />
-                  {error?.message}
-                </p>
-              )}
+              <FieldMessageError invalid={invalid} message={error?.message} />
             </div>
           </div>
         );
