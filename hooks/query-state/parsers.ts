@@ -1,19 +1,40 @@
-import type {
-  ParserChainable,
-  ParserConfig,
-  ParserWithDefaultValue,
-  UseQueryStateOptions,
-} from "./types";
+import type { ParserConfig, UseQueryStateOptions } from "./types";
 
 // i based my implementation in:
 // @reference https://github.com/47ng/nuqs/blob/next/packages/nuqs/src/parsers.ts#L7
 
-export function createParser<T>(config: ParserConfig<T>) {
+// type inspiration - totality based in type narrowing and type branding
+// @reference https://github.com/colinhacks/zod/blob/main/packages/zod/src/v3/helpers/util.ts#L80
+type Flags = {
+  HasDefault?: true;
+  HasOptions?: true;
+};
+// "_F" underscore indicates internal use
+type ParserBuilder<T, _F extends Flags = {}> = ParserConfig<T> &
+  (_F["HasDefault"] extends true
+    ? UseQueryStateOptions<T>
+    : {
+        withDefault<D>(defaultValue: D): ParserBuilder<
+          T | D,
+          _F & { HasDefault: true }
+        > & {
+          defaultValue: D;
+        };
+      }) &
+  (_F["HasOptions"] extends true
+    ? UseQueryStateOptions<T>
+    : {
+        defineOptions(
+          options: Partial<
+            Omit<UseQueryStateOptions<T>, keyof ParserConfig<T>>
+          >,
+        ): ParserBuilder<T, _F & { HasOptions: true }>;
+      });
+
+export function createParser<T>(config: ParserConfig<T>): ParserBuilder<T> {
   const base = {
     ...config,
-    withDefault(
-      defaultValue: T,
-    ): Omit<typeof this & { defaultValue: T }, "withDefault"> {
+    withDefault(defaultValue: unknown) {
       return {
         ...this,
         defaultValue,
@@ -21,7 +42,7 @@ export function createParser<T>(config: ParserConfig<T>) {
     },
     defineOptions(
       options: Partial<Omit<UseQueryStateOptions<T>, keyof ParserConfig<T>>>,
-    ): Omit<ParserChainable<T>, "defineOptions"> {
+    ) {
       return {
         ...this,
         ...options,
@@ -29,12 +50,11 @@ export function createParser<T>(config: ParserConfig<T>) {
     },
   };
 
-  return base;
+  return base as any;
 }
 
 export const qsParserBoolean = createParser<boolean>({
   parse: (qs) => {
-    if (qs === null) return null;
     return qs === "true";
   },
   serialize: (qs) => (qs ? "true" : "false"),
@@ -47,7 +67,6 @@ export const qsParserString = createParser<string>({
 
 export const qsParserInteger = createParser<number>({
   parse: (qs) => {
-    if (qs === null) return null;
     const int = parseInt(qs, 10);
     return Number.isInteger(int) ? int : null;
   },
@@ -56,7 +75,6 @@ export const qsParserInteger = createParser<number>({
 
 export const qsParserFloat = createParser<number>({
   parse: (qs) => {
-    if (qs === null) return null;
     const float = parseFloat(qs);
     return Number.isFinite(float) ? float : null;
   },
@@ -69,7 +87,6 @@ function compareDates(a: Date, b: Date): boolean {
 
 export const qsParserTimestamp = createParser<Date>({
   parse: (qs) => {
-    if (qs === null) return null;
     const ms = parseInt(qs, 10);
     return Number.isInteger(ms) ? new Date(ms) : null;
   },
@@ -79,7 +96,6 @@ export const qsParserTimestamp = createParser<Date>({
 
 export const qsParserDateTime = createParser<Date>({
   parse: (qs) => {
-    if (qs === null) return null;
     const date = new Date(qs);
     return Number.isFinite(date.getTime()) ? date : null;
   },
@@ -89,8 +105,6 @@ export const qsParserDateTime = createParser<Date>({
 
 export const qsParserISODate = createParser<Date>({
   parse: (qs) => {
-    if (qs === null) return null;
-
     const date = new Date(qs + "T00:00:00.000Z");
     return Number.isFinite(date.getTime()) ? date : null;
   },
@@ -114,7 +128,6 @@ export const qsParserNumberLiteral = <const Literal extends number>(
 ) => {
   return createParser<Literal>({
     parse: (qs): Literal | null => {
-      if (qs === null) return null;
       const num = parseFloat(qs) as Literal;
       return literals.includes(num) ? num : null;
     },
@@ -125,7 +138,6 @@ export const qsParserNumberLiteral = <const Literal extends number>(
 export const qsParserJson = <T>(validator?: (value: unknown) => value is T) => {
   return createParser<T>({
     parse: (qs): T | null => {
-      if (qs === null) return null;
       try {
         const parsed = JSON.parse(qs);
         if (validator) {

@@ -35,14 +35,14 @@ export function useModalState(
       .withDefault(false),
   );
 
-  const [modalTarget, setModalTarget] = useQueryState<string | null>(
+  const [modalTarget, setModalTarget] = useQueryState(
     targetKey,
     qsParserString
       .defineOptions({
         removeIfDefault: true,
         shallow: true,
       })
-      .withDefault(""),
+      .withDefault(null),
   );
 
   const isOpen = isModalOpen ?? false;
